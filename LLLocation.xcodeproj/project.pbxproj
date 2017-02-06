@@ -13,7 +13,6 @@
 		9B2489351E331F7900A193BD /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2489341E331F7900A193BD /* BackgroundTaskManager.swift */; };
 		9B7D28171E31CDD800D86760 /* LLLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B7D28151E31CDD800D86760 /* LLLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B7D28201E31CE1500D86760 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7D281F1E31CE1500D86760 /* LocationManager.swift */; };
-		9BE016331E34885A002B3461 /* BGModeLocationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BE016321E34885A002B3461 /* BGModeLocationDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		9B7D28151E31CDD800D86760 /* LLLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLLocation.h; sourceTree = "<group>"; };
 		9B7D28161E31CDD800D86760 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B7D281F1E31CE1500D86760 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		9BE016321E34885A002B3461 /* BGModeLocationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BGModeLocationDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +63,6 @@
 				9B2489301E3236BA00A193BD /* String.swift */,
 				9B2489321E323EFD00A193BD /* LocationShareModel.swift */,
 				9B2489341E331F7900A193BD /* BackgroundTaskManager.swift */,
-				9BE016321E34885A002B3461 /* BGModeLocationDelegate.swift */,
 			);
 			path = LLLocation;
 			sourceTree = "<group>";
@@ -156,7 +153,6 @@
 				9B24892F1E321A6800A193BD /* Utils.swift in Sources */,
 				9B2489351E331F7900A193BD /* BackgroundTaskManager.swift in Sources */,
 				9B2489331E323EFD00A193BD /* LocationShareModel.swift in Sources */,
-				9BE016331E34885A002B3461 /* BGModeLocationDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
