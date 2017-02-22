@@ -46,7 +46,7 @@ let MaxTaskTime: TimeInterval = 170
 let MinCollectTaskTime: TimeInterval = 5
 
 
-public class LocationManager: NSObject, CLLocationManagerDelegate {
+public class LocationManager: NSObject {
     // MARK: Class Property
     static let TAG = "LocationManager"
     private static var _shareLocationManager: CLLocationManager?
@@ -248,8 +248,10 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     
-    
-    
+}
+
+// MARK: CLLocationManagerDelegate
+extension LocationManager:CLLocationManagerDelegate {
     
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
@@ -269,5 +271,5 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         manager.initManager()
         manager.startUpdatingLocation()
     }
-    
+
 }
