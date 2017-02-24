@@ -9,7 +9,7 @@
 import Foundation
 
 extension String {
-    func showOnConsole (_ tag:String = "") {
+    public func showOnConsole (_ tag:String = "") {
         print("-\(tag)-:\(self)")
     }
 }

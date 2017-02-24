@@ -9,6 +9,11 @@
 import Foundation
 import CoreLocation
 
+
+let CLLocationManagerKey = "kCLLocationManagerKey"
+let ErrorKey = "kErrorKey"
+
+
 public enum LLError {
     case DisableGlobleLocationService
     case DisableBackgroundFetch
@@ -44,10 +49,9 @@ extension CLLocationManager {
 let MaxRestTime: TimeInterval = 165
 let MaxTaskTime: TimeInterval = 170
 let MinCollectTaskTime: TimeInterval = 5
-let CLLocationManagerKey = "CLLocationManagerKey"
-let ErrorKey = "ErrorKey"
 
-public class LocationManager: NSObject, CLLocationManagerDelegate {
+
+public class LocationManager: NSObject {
     // MARK: Class Property
     static let TAG = "LocationManager"
     private static var _shareLocationManager: CLLocationManager?
@@ -65,6 +69,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             _shareLocationManager = newValue
         }
     }
+
     // MARK: Public Property
     
     /*
@@ -131,7 +136,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
      *  Delay stop location manager to save power
      *  Min value is 5,beacuse locationmanager need some times to collect location
      */
-    private var delayStopTime:TimeInterval {
+    fileprivate var delayStopTime:TimeInterval {
         return collectTaskTime
     }
     
@@ -143,14 +148,14 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
      *  This is get next location time, work on forgound default is 60s
      *  In backgorund it's equal MaxTaskTime
      */
-    private var restartTime:TimeInterval{
+    fileprivate var restartTime:TimeInterval{
         return oneTaskTime
     }
     
     private var _oneTaskTime: TimeInterval = MaxTaskTime
     private var _collectTaskTime: TimeInterval = MinCollectTaskTime
     
-    private var shareModel: LocationShareModel!
+    fileprivate var shareModel: LocationShareModel!
     
     
     
@@ -218,7 +223,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
     }
     
     // MARK: Private Methods
-    @objc private func restartLocationUpdates() {
+    @objc fileprivate func restartLocationUpdates() {
         if self.shareModel.timer != nil {
             self.shareModel.timer?.invalidate()
             self.shareModel.timer = nil
@@ -230,7 +235,7 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         manager?.startUpdatingLocation()
         
     }
-    @objc private func stopLocationDelayBySeconds() {
+    @objc fileprivate func stopLocationDelayBySeconds() {
         let manager = LocationManager.shareLocationManager
         manager?.stopUpdatingLocation()
         "Location manager stop Updating after \(delayStopTime) seconds".showOnConsole(LocationManager.TAG)
@@ -247,15 +252,18 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         _ = self.shareModel.bgTask?.beginNewBackgroundTask()
         
     }
+}
+
+extension LocationManager:CLLocationManagerDelegate {
     
     // MARK: CLLocationManagerDelegate
     public func locationManager(_: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        locations.first?.description.showOnConsole(LocationManager.TAG)
+        
         for location in locations {
             let theAccuary = location.horizontalAccuracy
             if theAccuary > 0 && theAccuary <= maxAccuracy {
                 self.shareModel.locations.append(location)
-                
+                location.description.showOnConsole(LocationManager.TAG)
             }
         }
         
@@ -279,8 +287,9 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
             self.shareModel.delayTimer?.invalidate()
             self.shareModel.delayTimer = nil
         }
-        self.shareModel.delayTimer = Timer.scheduledTimer(timeInterval: delayStopTime, target: self, selector: #selector(LocationManager.stopLocationDelayBySeconds), userInfo: nil, repeats: false)
-        
+        if restartTime == delayStopTime{
+            self.shareModel.delayTimer = Timer.scheduledTimer(timeInterval: delayStopTime, target: self, selector: #selector(LocationManager.stopLocationDelayBySeconds), userInfo: nil, repeats: false)
+        }
     }
     
     public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -310,16 +319,6 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    //need to test sometimes it's always failed about 3 min there is no background task work,so app will stop
-    @objc private func didFailWithError(timer:Timer) {
-        let userInfo = timer.userInfo as! Dictionary<String, Any>
-        let manager = userInfo[CLLocationManagerKey] as! CLLocationManager
-        let error = userInfo[ErrorKey] as! Error
-        locationManager(manager, didFailWithError: error)
-        
-        "didFailWithError".showOnConsole(LocationManager.TAG)
-    }
-    
     public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:return
@@ -337,6 +336,16 @@ public class LocationManager: NSObject, CLLocationManagerDelegate {
         
         manager.initManager()
         manager.startUpdatingLocation()
+    }
+
+    //need to test sometimes it's always failed about 3 min there is no background task work,so app will stop
+    @objc private func didFailWithError(timer:Timer) {
+        let userInfo = timer.userInfo as! Dictionary<String, Any>
+        let manager = userInfo[CLLocationManagerKey] as! CLLocationManager
+        let error = userInfo[ErrorKey] as! Error
+        locationManager(manager, didFailWithError: error)
+        
+        "didFailWithError".showOnConsole(LocationManager.TAG)
     }
     
 }
