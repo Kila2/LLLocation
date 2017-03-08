@@ -13,7 +13,6 @@ import CoreLocation
 let CLLocationManagerKey = "kCLLocationManagerKey"
 let ErrorKey = "kErrorKey"
 
-
 public enum LLError {
     case DisableGlobleLocationService
     case DisableBackgroundFetch
@@ -51,7 +50,7 @@ let MaxTaskTime: TimeInterval = 170
 let MinCollectTaskTime: TimeInterval = 5
 
 
-public class LocationManager: NSObject {
+public class LocationManager: Thread {
     // MARK: Class Property
     static let TAG = "LocationManager"
     private static var _shareLocationManager: CLLocationManager?
@@ -69,7 +68,7 @@ public class LocationManager: NSObject {
             _shareLocationManager = newValue
         }
     }
-
+    
     // MARK: Public Property
     
     /*
@@ -172,7 +171,8 @@ public class LocationManager: NSObject {
     }
     
     // MARK: Public Method
-    public func startTracking() {
+    public override func start() {
+        super.start()
         guard CLLocationManager.locationServicesEnabled() else {
             print("Location Services Disabled")
             if delegate != nil {
@@ -213,13 +213,15 @@ public class LocationManager: NSObject {
         locationManager?.startUpdatingLocation()
     }
     
-    public func stopTracking() {
+    public override func cancel() {
+        super.cancel()
         if self.shareModel.timer != nil {
             self.shareModel.timer?.invalidate()
             self.shareModel.timer = nil
         }
         let manager = LocationManager.shareLocationManager
         manager?.stopUpdatingLocation()
+        
     }
     
     // MARK: Private Methods
@@ -337,7 +339,7 @@ extension LocationManager:CLLocationManagerDelegate {
         manager.initManager()
         manager.startUpdatingLocation()
     }
-
+    
     //need to test sometimes it's always failed about 3 min there is no background task work,so app will stop
     @objc private func didFailWithError(timer:Timer) {
         let userInfo = timer.userInfo as! Dictionary<String, Any>
