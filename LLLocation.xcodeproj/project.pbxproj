@@ -11,10 +11,13 @@
 		9B2489311E3236BA00A193BD /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2489301E3236BA00A193BD /* String.swift */; };
 		9B2489331E323EFD00A193BD /* LocationShareModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2489321E323EFD00A193BD /* LocationShareModel.swift */; };
 		9B2489351E331F7900A193BD /* BackgroundTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B2489341E331F7900A193BD /* BackgroundTaskManager.swift */; };
+		9B30B05D1E82410F00853865 /* BaseLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30B05C1E82410F00853865 /* BaseLocationManager.swift */; };
+		9B30B05F1E82411E00853865 /* LLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30B05E1E82411E00853865 /* LLLocationManager.swift */; };
+		9B30B0611E82414400853865 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30B0601E82414400853865 /* Rule.swift */; };
+		9B30B0631E82423100853865 /* CLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30B0621E82423100853865 /* CLLocationManager.swift */; };
+		9B30B0651E826A1200853865 /* LLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30B0641E826A1200853865 /* LLLocationManagerDelegate.swift */; };
 		9B7D28171E31CDD800D86760 /* LLLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B7D28151E31CDD800D86760 /* LLLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9B7D28201E31CE1500D86760 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B7D281F1E31CE1500D86760 /* LocationManager.swift */; };
-		9BF70A981E6FFEE800D7FB25 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF70A971E6FFEE800D7FB25 /* Heap.swift */; };
-		9BF70A9A1E6FFEEC00D7FB25 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BF70A991E6FFEEC00D7FB25 /* PriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +25,15 @@
 		9B2489301E3236BA00A193BD /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		9B2489321E323EFD00A193BD /* LocationShareModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationShareModel.swift; sourceTree = "<group>"; };
 		9B2489341E331F7900A193BD /* BackgroundTaskManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackgroundTaskManager.swift; sourceTree = "<group>"; };
+		9B30B05C1E82410F00853865 /* BaseLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseLocationManager.swift; sourceTree = "<group>"; };
+		9B30B05E1E82411E00853865 /* LLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLLocationManager.swift; sourceTree = "<group>"; };
+		9B30B0601E82414400853865 /* Rule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		9B30B0621E82423100853865 /* CLLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationManager.swift; sourceTree = "<group>"; };
+		9B30B0641E826A1200853865 /* LLLocationManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LLLocationManagerDelegate.swift; sourceTree = "<group>"; };
 		9B7D28121E31CDD800D86760 /* LLLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LLLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7D28151E31CDD800D86760 /* LLLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLLocation.h; sourceTree = "<group>"; };
 		9B7D28161E31CDD800D86760 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B7D281F1E31CE1500D86760 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		9BF70A971E6FFEE800D7FB25 /* Heap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
-		9BF70A991E6FFEEC00D7FB25 /* PriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +68,16 @@
 			children = (
 				9B7D28151E31CDD800D86760 /* LLLocation.h */,
 				9B7D28161E31CDD800D86760 /* Info.plist */,
-				9BF70A991E6FFEEC00D7FB25 /* PriorityQueue.swift */,
-				9BF70A971E6FFEE800D7FB25 /* Heap.swift */,
 				9B7D281F1E31CE1500D86760 /* LocationManager.swift */,
 				9B24892E1E321A6800A193BD /* Utils.swift */,
 				9B2489301E3236BA00A193BD /* String.swift */,
 				9B2489321E323EFD00A193BD /* LocationShareModel.swift */,
 				9B2489341E331F7900A193BD /* BackgroundTaskManager.swift */,
+				9B30B05C1E82410F00853865 /* BaseLocationManager.swift */,
+				9B30B05E1E82411E00853865 /* LLLocationManager.swift */,
+				9B30B0601E82414400853865 /* Rule.swift */,
+				9B30B0621E82423100853865 /* CLLocationManager.swift */,
+				9B30B0641E826A1200853865 /* LLLocationManagerDelegate.swift */,
 			);
 			path = LLLocation;
 			sourceTree = "<group>";
@@ -155,12 +164,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B7D28201E31CE1500D86760 /* LocationManager.swift in Sources */,
+				9B30B05D1E82410F00853865 /* BaseLocationManager.swift in Sources */,
+				9B30B0631E82423100853865 /* CLLocationManager.swift in Sources */,
 				9B2489311E3236BA00A193BD /* String.swift in Sources */,
 				9B24892F1E321A6800A193BD /* Utils.swift in Sources */,
-				9BF70A981E6FFEE800D7FB25 /* Heap.swift in Sources */,
 				9B2489351E331F7900A193BD /* BackgroundTaskManager.swift in Sources */,
-				9BF70A9A1E6FFEEC00D7FB25 /* PriorityQueue.swift in Sources */,
+				9B30B0611E82414400853865 /* Rule.swift in Sources */,
 				9B2489331E323EFD00A193BD /* LocationShareModel.swift in Sources */,
+				9B30B05F1E82411E00853865 /* LLLocationManager.swift in Sources */,
+				9B30B0651E826A1200853865 /* LLLocationManagerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
