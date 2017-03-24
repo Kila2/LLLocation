@@ -9,28 +9,50 @@
 import Foundation
 import CoreLocation
 
+public enum LLError {
+    case DisableGlobleLocationService
+    case DisableBackgroundFetch
+    case DisableAppLocationAuth
+    case RestrictAppLocationAuth
+}
+
+public struct LocationManagerError: Error {
+    enum ErrorKind {
+        case LocationFailed
+    }
+    let kind: ErrorKind
+}
+
+public protocol LocationManagerDelegate:class {
+    func startTrackingFailed(error: LLError)
+    
+}
+
+let MaxRestTime: TimeInterval = 165
+let MaxTaskTime: TimeInterval = 170
+let MinCollectTaskTime: TimeInterval = 5
 
 let CLLocationManagerKey = "kCLLocationManagerKey"
 let ErrorKey = "kErrorKey"
 let DelegateKey = "kDelegateKey"
 
-class BaseLocationManager:NSObject {
-    static let TAG = "LocationManager"
-    var shareModel:LocationShareModel! {
-        assert(false,"must override shareModel")
-        return nil
-    }
+public class BaseLocationManager:CLLocationManager {
+    static let TAG = "BaseLocationManager"
+    var shareModel:LocationShareModel
     // MARK: Public Property
-    weak var delegate:CLLocationManagerDelegate?
+    weak var errorDelegate:LocationManagerDelegate?
     var maxAccuracy = DBL_MAX
     var restartTime:TimeInterval!
     var delayStopTime:TimeInterval!
     
-    // MARK: init 
-    override init() {
+    // MARK: CLLocationManager Life Cycle
+    public override init() {
+        self.shareModel = LocationShareModel.shareModel
         super.init()
-        
     }
+    
+    // MARK: Public Method
+    
     
     // MARK: Private Methods
     @objc fileprivate func restartLocationUpdates(timer:Timer) {
@@ -52,11 +74,62 @@ class BaseLocationManager:NSObject {
         manager.stopUpdatingLocation()
         "Location manager stop Updating after \(delayStopTime) seconds".showOnConsole(BaseLocationManager.TAG)
     }
+    
+    internal func start(delegate:CLLocationManagerDelegate) {
+        guard CLLocationManager.locationServicesEnabled() else {
+            print("Location Services Disabled")
+            if self.errorDelegate != nil {
+                self.errorDelegate?.startTrackingFailed(error: .DisableGlobleLocationService)
+                return
+            }
+            Utils.jumpToLocationServiceSetting()
+            return
+        }
+        guard UIApplication.shared.backgroundRefreshStatus == .available else {
+            print("Background Refresh Disabled")
+            if self.errorDelegate != nil {
+                self.errorDelegate?.startTrackingFailed(error: .DisableBackgroundFetch)
+                return
+            }
+            Utils.jumpToAppSetting()
+            return
+        }
+        self.delegate = delegate
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        if authorizationStatus != .authorizedAlways && authorizationStatus != .authorizedWhenInUse {
+            print("Location Authority Disabled")
+            DispatchQueue.main.async {
+                self.requestAlwaysAuthorization()
+            }
+            if self.errorDelegate != nil {
+                self.errorDelegate?.startTrackingFailed(error: .DisableAppLocationAuth)
+                return
+            }
+            Utils.jumpToAppSetting()
+            return
+        }
+        // authorized
+        self.initManager()
+        self.startUpdatingLocation()
+    }
+    
+    internal func cancel() {
+        if self.shareModel.timer != nil {
+            self.shareModel.timer?.invalidate()
+            self.shareModel.timer = nil
+        }
+        self.stopUpdatingLocation()
+        
+    }
+
+    
+    // MARK: Notification
+    
 }
 
-extension BaseLocationManager {
+internal extension BaseLocationManager {
     
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation], taskBlock:()->Void ){
+    internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation], taskBlock:(()->Void)? = nil ){
         for location in locations {
             let theAccuary = location.horizontalAccuracy
             if theAccuary > 0 && theAccuary <= maxAccuracy {
@@ -75,7 +148,7 @@ extension BaseLocationManager {
             self.shareModel.didFailedTimer?.invalidate()
             self.shareModel.didFailedTimer = nil
         }
-        taskBlock()
+        taskBlock?()
         
         self.shareModel.timer = Timer.scheduledTimer(timeInterval: restartTime, target: self, selector: #selector(BaseLocationManager.restartLocationUpdates), userInfo: [CLLocationManagerKey:manager], repeats: true)
         
@@ -87,14 +160,11 @@ extension BaseLocationManager {
             self.shareModel.delayTimer = Timer.scheduledTimer(timeInterval: delayStopTime, target: self, selector: #selector(BaseLocationManager.stopLocationDelayBySeconds), userInfo: [CLLocationManagerKey:manager], repeats: false)
         }
     }
-
     
-    public func locationManager(_ manager: CLLocationManager, didFailWithError error: Error, taskBlock:()->Void ) {
-        
-        
+    
+    internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error, taskBlock:(()->Void)?=nil ) {
         
         //need to test sometimes it's always failed about 3 min there is no background task work,so app will stop
-        
         if let error = error as? CLError {
             if error.code == .locationUnknown {
                 if UIApplication.shared.applicationState == .background {
@@ -105,7 +175,7 @@ extension BaseLocationManager {
         
         if let error = error as? LocationManagerError {
             if error.kind == .LocationFailed && UIApplication.shared.applicationState == .background {
-                taskBlock()
+                taskBlock?()
                 guard self.shareModel.didFailedTimer == nil else {
                     return
                 }
@@ -115,15 +185,15 @@ extension BaseLocationManager {
         }
     }
     
-    public func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    internal func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         switch status {
         case .notDetermined:return
         case .authorizedAlways: break
         case .authorizedWhenInUse:break
         default:
             print("Location Authority restricted")
-            if delegate != nil {
-                delegate.startTrackingFailed(error: .RestrictAppLocationAuth)
+            if let errorDelegate = errorDelegate {
+                errorDelegate.startTrackingFailed(error: .RestrictAppLocationAuth)
                 return
             }
             Utils.jumpToAppSetting()

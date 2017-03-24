@@ -8,8 +8,8 @@
 
 import Foundation
 
-class Utils {
-    class func jumpToAppSetting() {
+internal class Utils {
+    internal class func jumpToAppSetting() {
         let urlString = URL(string: UIApplicationOpenSettingsURLString)!
         if #available(iOS 10.0, *) {
             
@@ -20,7 +20,7 @@ class Utils {
             
         }
     }
-    class func jumpToLocationServiceSetting() {
+    internal class func jumpToLocationServiceSetting() {
         let urlString = URL(string: "prefs:root=LOCATION_SERVICES")!
         if #available(iOS 10.0, *) {
             UIApplication.shared.open(urlString, options: [:], completionHandler: nil)

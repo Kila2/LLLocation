@@ -8,6 +8,6 @@
 
 import Foundation
 
-class Rule {
+public class Rule {
 
 }

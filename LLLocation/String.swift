@@ -8,8 +8,8 @@
 
 import Foundation
 
-extension String {
-    public func showOnConsole (_ tag:String = "") {
+internal extension String {
+    internal func showOnConsole (_ tag:String = "") {
         print("-\(tag)-:\(self)")
     }
 }

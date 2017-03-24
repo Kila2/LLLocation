@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import CoreLocation
 
-class LLLocationManager:BaseLocationManager {
+public class LLLocationManager:BaseLocationManager {
     
     private var rule:Rule?
     public var currentRule:Rule? {
@@ -22,21 +23,56 @@ class LLLocationManager:BaseLocationManager {
         }
     }
     
+    private var _delegateWithBT:LLLocationManagerDelegateWithBackgroundTask?
+    internal var delegateWithBT:LLLocationManagerDelegateWithBackgroundTask! {
+        get {
+            if self._delegateWithBT == nil {
+                self._delegateWithBT = LLLocationManagerDelegateWithBackgroundTask(manager: self)
+            }
+            return self._delegateWithBT
+        }
+    }
+    
+    private var _delegateWithOutBT:LLLocationManagerDelegateWithNoBackgroundTask?
+    internal var delegateWithOutBT:LLLocationManagerDelegateWithNoBackgroundTask! {
+        get {
+            if self._delegateWithOutBT == nil {
+                self._delegateWithOutBT = LLLocationManagerDelegateWithNoBackgroundTask(manager: self)
+            }
+            return self._delegateWithOutBT
+        }
+    }
+    
     private var _useInBackgroundTask = false
     public var useInBackgroundTask:Bool {
         set {
             _useInBackgroundTask = newValue
             if newValue {
-                let delegateWithBackgroundTask = LLLocationManagerDelegateWithBackgroundTask(manager: self)
-                self.delegate = delegateWithBackgroundTask
+                self.delegate = self.delegateWithBT
+                self.delegateWithBT.addObserver()
             }
             else {
-            
+                self.delegateWithBT.removeObserver()
+                self.delegate = self.delegateWithOutBT
             }
+            
         }
         get {
             return _useInBackgroundTask
         }
     }
     public var useSuppendBackground = false
+    
+    //MARK: Control
+    public func start() {
+        super.start(delegate: dispathDelegate())
+    }
+    public override func cancel(){
+        super.cancel()
+    }
+    
+    func dispathDelegate()->LLLocationManagerDelegate {
+        return useInBackgroundTask ? delegateWithBT : delegateWithOutBT
+    }
+    
 }

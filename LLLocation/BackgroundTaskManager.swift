@@ -9,19 +9,19 @@
 import Foundation
 
 
-extension Array where Element: Equatable {
+internal extension Array where Element: Equatable {
     
     // Remove first collection element that is equal to the given `object`:
-    public mutating func remove(object: Element) {
+    internal mutating func remove(object: Element) {
         if let index = index(of: object) {
             remove(at: index)
         }
     }
 }
 
-public class BackgroundTaskManager {
+internal class BackgroundTaskManager {
     static let TAG = "BackgroundTaskManager"
-    public static let sharedBackgroundTaskManager = BackgroundTaskManager()
+    internal static let sharedBackgroundTaskManager = BackgroundTaskManager()
     
     private var bgTaskIdList:[UIBackgroundTaskIdentifier]
     private var masterTaskId:UIBackgroundTaskIdentifier;
@@ -31,7 +31,7 @@ public class BackgroundTaskManager {
         masterTaskId = UIBackgroundTaskInvalid
     }
     
-    public func beginNewBackgroundTask() {
+    internal func beginNewBackgroundTask() {
         let application = UIApplication.shared
         
         guard application.applicationState == .background else {
@@ -57,7 +57,7 @@ public class BackgroundTaskManager {
         }
     }
     
-    public func endAllBackgroundTasks() {
+    internal func endAllBackgroundTasks() {
         drainBGTaskList(all:true)
     }
     
@@ -65,7 +65,7 @@ public class BackgroundTaskManager {
         drainBGTaskList(all: false)
     }
     
-    func drainBGTaskList(all:Bool) {
+    internal func drainBGTaskList(all:Bool) {
         let application = UIApplication.shared
         if application.responds(to: #selector(UIApplication.endBackgroundTask(_:))) {
             let count = self.bgTaskIdList.count
