@@ -13,9 +13,9 @@ public class LocationShareModel {
     
     public static var shareModel = LocationShareModel()
     public var lastKnowLocation: CLLocation?
-    internal var delayTimer:Timer?
-    internal var timer:Timer?
-    internal var didFailedTimer:Timer?
+    internal var stopAfterTimer:Timer?
+    internal var startAfterTimer:Timer?
+    internal var retryAfterTimer:Timer?
     internal var bgTask:BackgroundTaskManager?
     public var locations: [CLLocation]! {
         get {

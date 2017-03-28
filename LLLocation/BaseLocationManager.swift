@@ -23,14 +23,9 @@ public struct LocationManagerError: Error {
     let kind: ErrorKind
 }
 
-public protocol LocationManagerDelegate:class {
+public protocol LocationManagerErrorDelegate:class {
     func startTrackingFailed(error: LLError)
-    
 }
-
-let MaxRestTime: TimeInterval = 165
-let MaxTaskTime: TimeInterval = 170
-let MinCollectTaskTime: TimeInterval = 5
 
 let CLLocationManagerKey = "kCLLocationManagerKey"
 let ErrorKey = "kErrorKey"
@@ -40,8 +35,8 @@ public class BaseLocationManager:CLLocationManager {
     static let TAG = "BaseLocationManager"
     var shareModel:LocationShareModel
     // MARK: Public Property
-    weak var errorDelegate:LocationManagerDelegate?
-    var maxAccuracy = DBL_MAX
+    weak var errorDelegate:LocationManagerErrorDelegate?
+    var maxAccuracy = Double.greatestFiniteMagnitude
     var restartTime:TimeInterval!
     var delayStopTime:TimeInterval!
     
@@ -59,9 +54,9 @@ public class BaseLocationManager:CLLocationManager {
         let userInfo = timer.userInfo as! Dictionary<String, Any>
         let manager = userInfo[CLLocationManagerKey] as! CLLocationManager
         
-        if self.shareModel.timer != nil {
-            self.shareModel.timer?.invalidate()
-            self.shareModel.timer = nil
+        if self.shareModel.startAfterTimer != nil {
+            self.shareModel.startAfterTimer?.invalidate()
+            self.shareModel.startAfterTimer = nil
         }
         manager.delegate = delegate
         manager.initManager()
@@ -85,6 +80,7 @@ public class BaseLocationManager:CLLocationManager {
             Utils.jumpToLocationServiceSetting()
             return
         }
+        
         guard UIApplication.shared.backgroundRefreshStatus == .available else {
             print("Background Refresh Disabled")
             if self.errorDelegate != nil {
@@ -94,6 +90,7 @@ public class BaseLocationManager:CLLocationManager {
             Utils.jumpToAppSetting()
             return
         }
+        
         self.delegate = delegate
         let authorizationStatus = CLLocationManager.authorizationStatus()
         if authorizationStatus != .authorizedAlways && authorizationStatus != .authorizedWhenInUse {
@@ -114,14 +111,14 @@ public class BaseLocationManager:CLLocationManager {
     }
     
     internal func cancel() {
-        if self.shareModel.timer != nil {
-            self.shareModel.timer?.invalidate()
-            self.shareModel.timer = nil
+        if self.shareModel.startAfterTimer != nil {
+            self.shareModel.startAfterTimer?.invalidate()
+            self.shareModel.startAfterTimer = nil
         }
         self.stopUpdatingLocation()
         
     }
-
+    
     
     // MARK: Notification
     
@@ -140,24 +137,24 @@ internal extension BaseLocationManager {
         
         self.shareModel.lastKnowLocation = locations.first
         
-        guard self.shareModel.timer == nil else {
+        guard self.shareModel.startAfterTimer == nil else {
             return
         }
         
-        if self.shareModel.didFailedTimer != nil {
-            self.shareModel.didFailedTimer?.invalidate()
-            self.shareModel.didFailedTimer = nil
+        if self.shareModel.retryAfterTimer != nil {
+            self.shareModel.retryAfterTimer?.invalidate()
+            self.shareModel.retryAfterTimer = nil
         }
         taskBlock?()
         
-        self.shareModel.timer = Timer.scheduledTimer(timeInterval: restartTime, target: self, selector: #selector(BaseLocationManager.restartLocationUpdates), userInfo: [CLLocationManagerKey:manager], repeats: true)
+        self.shareModel.startAfterTimer = Timer.scheduledTimer(timeInterval: restartTime, target: self, selector: #selector(BaseLocationManager.restartLocationUpdates), userInfo: [CLLocationManagerKey:manager], repeats: true)
         
-        if self.shareModel.delayTimer != nil {
-            self.shareModel.delayTimer?.invalidate()
-            self.shareModel.delayTimer = nil
+        if self.shareModel.stopAfterTimer != nil {
+            self.shareModel.stopAfterTimer?.invalidate()
+            self.shareModel.stopAfterTimer = nil
         }
         if restartTime == delayStopTime{
-            self.shareModel.delayTimer = Timer.scheduledTimer(timeInterval: delayStopTime, target: self, selector: #selector(BaseLocationManager.stopLocationDelayBySeconds), userInfo: [CLLocationManagerKey:manager], repeats: false)
+            self.shareModel.stopAfterTimer = Timer.scheduledTimer(timeInterval: delayStopTime, target: self, selector: #selector(BaseLocationManager.stopLocationDelayBySeconds), userInfo: [CLLocationManagerKey:manager], repeats: false)
         }
     }
     
@@ -176,11 +173,11 @@ internal extension BaseLocationManager {
         if let error = error as? LocationManagerError {
             if error.kind == .LocationFailed && UIApplication.shared.applicationState == .background {
                 taskBlock?()
-                guard self.shareModel.didFailedTimer == nil else {
+                guard self.shareModel.retryAfterTimer == nil else {
                     return
                 }
                 
-                self.shareModel.didFailedTimer = Timer.scheduledTimer(timeInterval: 170, target: self, selector: #selector(BaseLocationManager.didFailWithError(timer:)), userInfo: [CLLocationManagerKey:manager,ErrorKey:error], repeats: true)
+                self.shareModel.retryAfterTimer = Timer.scheduledTimer(timeInterval: 170, target: self, selector: #selector(BaseLocationManager.didFailWithError(timer:)), userInfo: [CLLocationManagerKey:manager,ErrorKey:error], repeats: true)
             }
         }
     }
