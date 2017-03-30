@@ -11,17 +11,7 @@ import CoreLocation
 
 public class LLLocationManager:BaseLocationManager {
     
-    private var rule:Rule?
-    public var currentRule:Rule? {
-        set {
-            if rule !== newValue {
-                rule = newValue
-            }
-        }
-        get {
-            return rule
-        }
-    }
+    
     
     private var _delegateWithBT:LLLocationManagerDelegateWithBackgroundTask?
     internal var delegateWithBT:LLLocationManagerDelegateWithBackgroundTask! {
