@@ -12,6 +12,13 @@ import CoreLocation
 public class LLLocationManager:BaseLocationManager {
     
     
+    public override init() {
+        super.init()
+    }
+    
+    public convenience init(rule:Rule) {
+        self.init(rule: rule)
+    }
     
     private var _delegateWithBT:LLLocationManagerDelegateWithBackgroundTask?
     internal var delegateWithBT:LLLocationManagerDelegateWithBackgroundTask! {

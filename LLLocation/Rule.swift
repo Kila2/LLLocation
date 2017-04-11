@@ -21,11 +21,11 @@ public class Rule {
         }
     }
     
-    init() {
+    public init() {
         
     }
     
-    convenience init(with detail:[(loging:TimeInterval,stoping:TimeInterval)]!) {
+    public convenience init(with detail:[(loging:TimeInterval,stoping:TimeInterval)]!) {
         self.init()
         if detail.count>0 {
             self.detail = detail
