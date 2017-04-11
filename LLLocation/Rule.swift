@@ -21,6 +21,20 @@ public class Rule {
         }
     }
     
+    init() {
+        
+    }
+    
+    convenience init(with detail:[(loging:TimeInterval,stoping:TimeInterval)]!) {
+        self.init()
+        if detail.count>0 {
+            self.detail = detail
+        }
+        else {
+            assert(false,"Rule detail size is zero")
+        }
+    }
+    
     public func currentStatus()-> (loging:TimeInterval,stoping:TimeInterval) {
         if let index = logingIndex {
             let result = detail[index]
@@ -29,6 +43,7 @@ public class Rule {
         }
         return (10,160)
     }
+    
     
     public func resetIndex() {
         logingIndex = 0

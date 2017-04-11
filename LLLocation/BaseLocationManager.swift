@@ -36,7 +36,7 @@ public class BaseLocationManager:CLLocationManager {
     var shareModel:LocationShareModel
     // MARK: Private Method
     fileprivate weak var timerPool = TimerPool()
-    private var rule:Rule!
+    private var rule:Rule = Rule.init(with: [(loging: 10 , stoping: 50)])
     // MARK: Public Property
     weak var errorDelegate:LocationManagerErrorDelegate?
     var maxAccuracy = Double.greatestFiniteMagnitude
@@ -68,6 +68,10 @@ public class BaseLocationManager:CLLocationManager {
         super.init()
     }
     
+    convenience init(rule:Rule) {
+        self.init()
+        self.currentRule = rule
+    }
     // MARK: Public Method
     
     
