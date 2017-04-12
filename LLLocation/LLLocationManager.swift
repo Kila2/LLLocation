@@ -14,6 +14,11 @@ public class LLLocationManager:BaseLocationManager {
     
     public override init() {
         super.init()
+        "LLLocationManager init".showOnConsole("LLLocationManager");
+    }
+    
+    deinit {
+        "LLLocationManager deinit".showOnConsole("LLLocationManager");
     }
     
     public convenience init(rule:Rule) {

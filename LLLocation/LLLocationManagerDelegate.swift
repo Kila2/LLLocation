@@ -14,6 +14,10 @@ internal class LLLocationManagerDelegate:NSObject,CLLocationManagerDelegate {
     init(manager:BaseLocationManager) {
         self.manager = manager
         super.init()
+        "LLLocationManagerDelegate init".showOnConsole("LLLocationManagerDelegate");
+    }
+    deinit {
+        "LLLocationManagerDelegate deinit".showOnConsole("LLLocationManagerDelegate");
     }
 }
 
@@ -23,9 +27,11 @@ internal class LLLocationManagerDelegateWithBackgroundTask:LLLocationManagerDele
     // MARK: NSObject Life Cycle
     public override init(manager:BaseLocationManager) {
         super.init(manager: manager)
+        "LLLocationManagerDelegateWithBackgroundTask init".showOnConsole("LLLocationManagerDelegateWithBackgroundTask");
     }
     
     deinit {
+        "LLLocationManagerDelegateWithBackgroundTask deinit".showOnConsole("LLLocationManagerDelegateWithBackgroundTask");
         removeObserver()
     }
     

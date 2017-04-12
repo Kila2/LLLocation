@@ -35,23 +35,23 @@ public class BaseLocationManager:CLLocationManager {
     static let TAG = "BaseLocationManager"
     var shareModel:LocationShareModel
     // MARK: Private Method
-    fileprivate weak var timerPool = TimerPool()
+    fileprivate var timerPool = TimerPool()
     private var rule:Rule = Rule.init(with: [(loging: 10 , stoping: 50)])
     // MARK: Public Property
     weak var errorDelegate:LocationManagerErrorDelegate?
     var maxAccuracy = Double.greatestFiniteMagnitude
-    var startTime:TimeInterval! {
+    var startTime:TimeInterval {
         get {
-            return rule.currentStatus().loging
+            return TimeInterval.init(rule.currentStatus().loging)
         }
     }
-    var stopTime:TimeInterval! {
+    var stopTime:TimeInterval {
         get {
-            return rule.currentStatus().stoping
+            return  TimeInterval.init(rule.currentStatus().stoping)
         }
     }
     
-    public var currentRule:Rule! {
+    public var currentRule:Rule {
         set {
             if rule !== newValue {
                 rule = newValue
@@ -66,6 +66,11 @@ public class BaseLocationManager:CLLocationManager {
     public override init() {
         self.shareModel = LocationShareModel.shareModel
         super.init()
+        "BaseLocationManager init".showOnConsole("BaseLocationManager");
+    }
+    
+    deinit {
+        "BaseLocationManager deinit".showOnConsole("BaseLocationManager");
     }
     
     convenience init(rule:Rule) {
@@ -77,16 +82,26 @@ public class BaseLocationManager:CLLocationManager {
     
     // MARK: Private Methods
     @objc internal func startLocationUpdatesByTimer(timer:Timer) {
-    
+        self.shareModel.startAfterTimer?.pause()
+        self.shareModel.startAfterTimer = nil
+        
         self.initManager()
         self.startUpdatingLocation()
     }
     
     @objc internal func stopLocationUpdatesByTimer(timer:Timer) {
+        self.shareModel.stopAfterTimer?.pause()
+        self.shareModel.stopAfterTimer = nil
+        
         self.stopUpdatingLocation()
-        "Location manager stop Updating after \(stopTime) seconds".showOnConsole(BaseLocationManager.TAG)
+        
         //Delay Restart
-        self.shareModel.startAfterTimer = self.timerPool!.startAfterTimers(startTime: startTime, target: self)
+        if self.shareModel.startAfterTimer == nil {
+            "Location manager restart Updating after \(stopTime) seconds".showOnConsole(BaseLocationManager.TAG)
+            self.shareModel.startAfterTimer = self.timerPool.startAfterTimers(stopTime: stopTime, target: self)
+            self.shareModel.startAfterTimer?.remuse(after: stopTime)
+        }
+        
     }
     
     internal func start(delegate:CLLocationManagerDelegate) {
@@ -156,7 +171,12 @@ internal extension BaseLocationManager {
         
         self.shareModel.lastKnowLocation = locations.first
         taskBlock?()
-        self.shareModel.stopAfterTimer = self.timerPool!.stopAfterTimers(stopTime: stopTime, target: self)
+        if self.shareModel.stopAfterTimer == nil {
+            "Location manager stop Updating after \(startTime) seconds".showOnConsole(BaseLocationManager.TAG)
+            self.shareModel.stopAfterTimer = self.timerPool.stopAfterTimers(loggingTime: startTime, target: self)
+            self.shareModel.stopAfterTimer?.remuse(after: startTime)
+        }
+        
     }
     
     

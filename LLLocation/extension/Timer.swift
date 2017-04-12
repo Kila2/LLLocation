@@ -13,7 +13,7 @@ internal extension Timer {
         self.fireDate = Date.distantFuture
     }
     
-    func remuse(){
-        self.fireDate = Date.distantPast
+    func remuse(after:TimeInterval){
+        self.fireDate = Date.init(timeIntervalSinceNow: after)
     }
 }
