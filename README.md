@@ -1,6 +1,8 @@
 # LLLocation
 - [Features](#features)
 - [Usage](#usage)
+- [FAQ](#faq)
+- [License](#license)
 
 ## Features
 
@@ -27,6 +29,13 @@ model.locations.setAppendBlock { (location) in
 	//do something with location            
 }
 ```
+
+## FAQ
+
+### Contact me?
+
+Email: <277014717@qq.com>
+
 ## License
 
 LLLocation is released under the Apache License 2.0. See LICENSE for details.
