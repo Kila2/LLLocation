@@ -1,7 +1,8 @@
 # LLLocation
 - [Features](#features)
 - [Usage](#usage)
-- ## Features
+
+## Features
 
 - [x] Collect location
 - [x] Use on application in background
