@@ -25,6 +25,10 @@ public class Rule {
         
     }
     
+    /*
+     background live time about 180 secs, loging and stoping sum must < 180.
+     suggest the sum < 170. if not it maybe kill by iOS system.
+     */
     public convenience init(with detail:[(loging:TimeInterval,stoping:TimeInterval)]!) {
         self.init()
         if detail.count>0 {

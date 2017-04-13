@@ -11,6 +11,11 @@ import CoreLocation
 
 public class LLLocationManager:BaseLocationManager {
     
+    public static func initialize(with launchOptions: [UIApplicationLaunchOptionsKey: Any]?) {
+        if launchOptions?[UIApplicationLaunchOptionsKey.location] != nil{
+            LocationShareModel.shareModel.appIsSuppend = .Suppend
+        }
+    }
     
     public override init() {
         super.init()
@@ -64,7 +69,22 @@ public class LLLocationManager:BaseLocationManager {
             return _useInBackgroundTask
         }
     }
-    public var useSuppendBackground = false
+    
+    private var _useSuppendBackground = false
+    public var useSuppendBackground:Bool {
+        set {
+            _useSuppendBackground = newValue
+            if _useSuppendBackground {
+                self.startMonitoringSignificantLocationChanges()
+            }
+            else {
+                self.stopMonitoringSignificantLocationChanges()
+            }
+        }
+        get {
+            return _useSuppendBackground
+        }
+    }
     
     //MARK: Control
     public func start() {

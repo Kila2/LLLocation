@@ -91,3 +91,4 @@ internal class LLLocationManagerDelegateWithNoBackgroundTask:LLLocationManagerDe
         self.manager.locationManager(manager, didChangeAuthorization: status)
     }
 }
+

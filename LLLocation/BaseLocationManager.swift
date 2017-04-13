@@ -169,7 +169,6 @@ internal extension BaseLocationManager {
             }
         }
     
-        
         if self.shareModel.retryAfterTimer != nil {
             self.shareModel.retryAfterTimer?.invalidate()
             self.shareModel.retryAfterTimer = nil
