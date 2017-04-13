@@ -27,5 +27,6 @@ model.locations.setAppendBlock { (location) in
 	//do something with location            
 }
 ```
-		
-        
+## License
+
+LLLocation is released under the Apache License 2.0. See LICENSE for details.
