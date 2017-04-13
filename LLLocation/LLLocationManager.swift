@@ -22,7 +22,8 @@ public class LLLocationManager:BaseLocationManager {
     }
     
     public convenience init(rule:Rule) {
-        self.init(rule: rule)
+        self.init()
+        self.currentRule = rule
     }
     
     private var _delegateWithBT:LLLocationManagerDelegateWithBackgroundTask?

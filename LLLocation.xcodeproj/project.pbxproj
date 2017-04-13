@@ -16,6 +16,7 @@
 		9B30B0631E82423100853865 /* CLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30B0621E82423100853865 /* CLLocationManager.swift */; };
 		9B30B0651E826A1200853865 /* LLLocationManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B30B0641E826A1200853865 /* LLLocationManagerDelegate.swift */; };
 		9B7D28171E31CDD800D86760 /* LLLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B7D28151E31CDD800D86760 /* LLLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9B92E4861E9F5D960099A840 /* ArrayProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B92E4851E9F5D960099A840 /* ArrayProxy.swift */; };
 		9BC58FFE1E8A679D00A6AF13 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC58FFC1E8A679D00A6AF13 /* String.swift */; };
 		9BC58FFF1E8A679D00A6AF13 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC58FFD1E8A679D00A6AF13 /* Timer.swift */; };
 		9BC590011E8A685100A6AF13 /* TimerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BC590001E8A685100A6AF13 /* TimerPool.swift */; };
@@ -33,6 +34,7 @@
 		9B7D28121E31CDD800D86760 /* LLLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LLLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B7D28151E31CDD800D86760 /* LLLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LLLocation.h; sourceTree = "<group>"; };
 		9B7D28161E31CDD800D86760 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B92E4851E9F5D960099A840 /* ArrayProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayProxy.swift; sourceTree = "<group>"; };
 		9BC58FFC1E8A679D00A6AF13 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		9BC58FFD1E8A679D00A6AF13 /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		9BC590001E8A685100A6AF13 /* TimerPool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerPool.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				9B30B0621E82423100853865 /* CLLocationManager.swift */,
 				9B30B0641E826A1200853865 /* LLLocationManagerDelegate.swift */,
 				9BC590001E8A685100A6AF13 /* TimerPool.swift */,
+				9B92E4851E9F5D960099A840 /* ArrayProxy.swift */,
 			);
 			path = LLLocation;
 			sourceTree = "<group>";
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B30B05D1E82410F00853865 /* BaseLocationManager.swift in Sources */,
+				9B92E4861E9F5D960099A840 /* ArrayProxy.swift in Sources */,
 				9B30B0631E82423100853865 /* CLLocationManager.swift in Sources */,
 				9B24892F1E321A6800A193BD /* Utils.swift in Sources */,
 				9BC58FFF1E8A679D00A6AF13 /* Timer.swift in Sources */,

@@ -36,9 +36,8 @@ public class Rule {
     }
     
     public func currentStatus()-> (loging:TimeInterval,stoping:TimeInterval) {
-        if let index = logingIndex {
-            let result = detail[index]
-            logingIndex = index+1 > detail.count ? 0 : index+1
+        if logingIndex != nil {
+            let result = detail[_logingIndex]
             return result
         }
         return (10,160)
@@ -47,5 +46,9 @@ public class Rule {
     
     public func resetIndex() {
         logingIndex = 0
+    }
+    
+    public func next() {
+        _logingIndex = _logingIndex + 1 >= detail.count ? 0 : _logingIndex + 1
     }
 }

@@ -36,7 +36,7 @@ public class BaseLocationManager:CLLocationManager {
     var shareModel:LocationShareModel
     // MARK: Private Method
     fileprivate var timerPool = TimerPool()
-    private var rule:Rule = Rule.init(with: [(loging: 10 , stoping: 50)])
+    private var rule:Rule = Rule.init(with: [(loging: 10 , stoping: 50),(loging: 10 , stoping: 10)])
     // MARK: Public Property
     weak var errorDelegate:LocationManagerErrorDelegate?
     var maxAccuracy = Double.greatestFiniteMagnitude
@@ -50,7 +50,7 @@ public class BaseLocationManager:CLLocationManager {
             return  TimeInterval.init(rule.currentStatus().stoping)
         }
     }
-    
+    public var saveLocationInShareModel = false;
     public var currentRule:Rule {
         set {
             if rule !== newValue {
@@ -92,6 +92,8 @@ public class BaseLocationManager:CLLocationManager {
     @objc internal func stopLocationUpdatesByTimer(timer:Timer) {
         self.shareModel.stopAfterTimer?.pause()
         self.shareModel.stopAfterTimer = nil
+        
+        rule.next()
         
         self.stopUpdatingLocation()
         
@@ -156,13 +158,17 @@ public class BaseLocationManager:CLLocationManager {
 internal extension BaseLocationManager {
     
     internal func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation], taskBlock:(()->Void)? = nil ){
-        for location in locations {
-            let theAccuary = location.horizontalAccuracy
-            if theAccuary > 0 && theAccuary <= maxAccuracy {
-                self.shareModel.locations.append(location)
-                location.description.showOnConsole(BaseLocationManager.TAG)
+        
+        let location = locations.max { (location1, location2) -> Bool in
+            return location1.horizontalAccuracy > location2.horizontalAccuracy
+        }
+        if let theAccuary = location?.horizontalAccuracy {
+            if theAccuary > 0 && theAccuary <= maxAccuracy && -location!.timestamp.timeIntervalSinceNow < 4 {
+                self.shareModel.locations.append(location!,unsave: !saveLocationInShareModel)
+                location!.description.showOnConsole(BaseLocationManager.TAG)
             }
         }
+    
         
         if self.shareModel.retryAfterTimer != nil {
             self.shareModel.retryAfterTimer?.invalidate()

@@ -17,10 +17,10 @@ public class LocationShareModel {
     internal var startAfterTimer:Timer?
     internal var retryAfterTimer:Timer?
     internal var bgTask:BackgroundTaskManager?
-    public var locations: [CLLocation]! {
+    public var locations: ArrayProxy<CLLocation>! {
         get {
             if _locations == nil {
-                _locations = []
+                _locations = ArrayProxy<CLLocation>()
             }
             return _locations
         }
@@ -29,6 +29,6 @@ public class LocationShareModel {
         }
     }
     
-    private var _locations: [CLLocation]?
+    private var _locations: ArrayProxy<CLLocation>?
     
 }
