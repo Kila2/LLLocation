@@ -9,7 +9,7 @@
 - [x] Collect location
 - [x] Support custom rules
 - [x] Use on application in background
-- [ ] Use on application in suppend
+- [x] Use on application in suppend
 
 
 ## Usage
