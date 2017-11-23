@@ -37,7 +37,7 @@ public class LocationShareModel:NSObject {
     }
     private var _locations: ArrayProxy<CLLocation>?
     
-    private override init() {
+    override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(LocationShareModel.applicationDidEnterBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(LocationShareModel.applicationWillEnterForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
