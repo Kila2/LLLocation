@@ -15,6 +15,7 @@ public enum AppIsSuppend: String {
     case Suppend
 }
 
+@objcMembers
 public class LocationShareModel:NSObject {
     
     public static var shareModel = LocationShareModel()
@@ -39,20 +40,19 @@ public class LocationShareModel:NSObject {
     
     override init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(LocationShareModel.applicationDidEnterBackground), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(LocationShareModel.applicationWillEnterForeground), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(LocationShareModel.applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(LocationShareModel.applicationWillEnterForeground), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc public func applicationDidEnterBackground() {
+    func applicationDidEnterBackground() {
         appIsSuppend = .Background
     }
     
-    @objc public func applicationWillEnterForeground() {
+    func applicationWillEnterForeground() {
         appIsSuppend = .Forground
     }
-    
 }
