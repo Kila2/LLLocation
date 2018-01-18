@@ -20,6 +20,19 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>总是使用</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>总是使用</string>
+	<key>NSLocationUsageDescription</key>
+	<string>总是使用</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>总是使用</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>location</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

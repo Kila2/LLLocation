@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D96DEAC2010961C0057BA81 /* LLLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D96DEAD2010961C0057BA81 /* LLLocation.framework */; };
 		2DFF00621FD63574004A444E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF00611FD63574004A444E /* AppDelegate.m */; };
 		2DFF00651FD63574004A444E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF00641FD63574004A444E /* ViewController.m */; };
 		2DFF00681FD63574004A444E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DFF00661FD63574004A444E /* Main.storyboard */; };
@@ -15,7 +16,21 @@
 		2DFF00701FD63574004A444E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF006F1FD63574004A444E /* main.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2D96DEA4201094860057BA81 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		2D96DEAD2010961C0057BA81 /* LLLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LLLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFF005D1FD63574004A444E /* LLLocationDemo-OC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LLLocationDemo-OC.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFF00601FD63574004A444E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DFF00611FD63574004A444E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -33,17 +48,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D96DEAC2010961C0057BA81 /* LLLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D96DE96201091890057BA81 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2D96DEAD2010961C0057BA81 /* LLLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2DFF00541FD63574004A444E = {
 			isa = PBXGroup;
 			children = (
 				2DFF005F1FD63574004A444E /* LLLocationDemo-OC */,
 				2DFF005E1FD63574004A444E /* Products */,
+				2D96DE96201091890057BA81 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +106,7 @@
 				2DFF00591FD63574004A444E /* Sources */,
 				2DFF005A1FD63574004A444E /* Frameworks */,
 				2DFF005B1FD63574004A444E /* Resources */,
+				2D96DEA4201094860057BA81 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -103,6 +129,11 @@
 					2DFF005C1FD63574004A444E = {
 						CreatedOnToolsVersion = 9.1;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -277,8 +308,10 @@
 		2DFF00741FD63575004A444E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EGQZRCZ5ZV;
 				INFOPLIST_FILE = "LLLocationDemo-OC/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -291,8 +324,10 @@
 		2DFF00751FD63575004A444E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = EGQZRCZ5ZV;
 				INFOPLIST_FILE = "LLLocationDemo-OC/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

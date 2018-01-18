@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D96DEAA201095D90057BA81 /* LLLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D96DEAB201095D90057BA81 /* LLLocation.framework */; };
 		2DFF00831FD6359E004A444E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF00821FD6359E004A444E /* AppDelegate.swift */; };
 		2DFF00851FD6359E004A444E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFF00841FD6359E004A444E /* ViewController.swift */; };
 		2DFF00881FD6359E004A444E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DFF00861FD6359E004A444E /* Main.storyboard */; };
 		2DFF008A1FD6359E004A444E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DFF00891FD6359E004A444E /* Assets.xcassets */; };
 		2DFF008D1FD6359E004A444E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DFF008B1FD6359E004A444E /* LaunchScreen.storyboard */; };
-		2DFF00A51FD6360D004A444E /* LLLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFF00A11FD635FF004A444E /* LLLocation.framework */; };
-		2DFF00A61FD6360D004A444E /* LLLocation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2DFF00A11FD635FF004A444E /* LLLocation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,7 +22,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2DFF00A61FD6360D004A444E /* LLLocation.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,6 +29,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2D96DEAB201095D90057BA81 /* LLLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LLLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFF007F1FD6359E004A444E /* LLLocationDemo-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "LLLocationDemo-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DFF00821FD6359E004A444E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DFF00841FD6359E004A444E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,7 +37,6 @@
 		2DFF00891FD6359E004A444E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DFF008C1FD6359E004A444E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DFF008E1FD6359E004A444E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2DFF00A11FD635FF004A444E /* LLLocation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LLLocation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,7 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DFF00A51FD6360D004A444E /* LLLocation.framework in Frameworks */,
+				2D96DEAA201095D90057BA81 /* LLLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,7 +84,7 @@
 		2DFF009F1FD635FF004A444E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2DFF00A11FD635FF004A444E /* LLLocation.framework */,
+				2D96DEAB201095D90057BA81 /* LLLocation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

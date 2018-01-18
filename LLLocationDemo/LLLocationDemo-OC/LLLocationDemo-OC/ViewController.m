@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
+#import "LLLocation/LLLocation-Swift.h"
 
 @interface ViewController ()
-
+@property (nonatomic, strong) LLLocationManager *manager;
 @end
 
 @implementation ViewController
@@ -17,6 +18,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.manager = [[LLLocationManager alloc] init];
+    [self.manager start];
 }
 
 
