@@ -52,7 +52,7 @@ public class LLLocationKit {
 
 public class LLLocationManager:NSObject,CLLocationManagerDelegate {
     @objc public static let shareInstance = LLLocationManager.init();
-    private static let tag = "LLLocationManager";
+    fileprivate static let tag = "LLLocationManager";
     
     /// if location horizontalAccuracy smaller than maxAccuracy it will not record default = DOUBLE_MAX
     @objc public var maxAccuracy = Double.greatestFiniteMagnitude
@@ -119,13 +119,13 @@ public class LLLocationManager:NSObject,CLLocationManagerDelegate {
         }
     }
     
-    private var config:LLConfig
-    private var _mode:LLMode = .Default;
-    private var timerPool = TimerPool()
+    fileprivate var config:LLConfig
+    fileprivate var _mode:LLMode = .Default;
+    fileprivate var timerPool = TimerPool()
     
     internal var manager:CLLocationManager
-    private var shareModel:LocationShareModel
-    private var isStart = false;
+    fileprivate var shareModel:LocationShareModel
+    fileprivate var isStart = false;
     
     
     /// init
@@ -229,7 +229,7 @@ extension LLLocationManager {
     }
     
     //need to test sometimes it's always failed about 3 min there is no background task work,so app will stop
-    @objc private func didFailWithError(timer:Timer) {
+    @objc fileprivate func didFailWithError(timer:Timer) {
         let userInfo = timer.userInfo as! Dictionary<String, Any>
         let error = userInfo[ErrorKey] as! Error
         self.locationManager(self.manager, didFailWithError: error)
@@ -278,7 +278,7 @@ extension LLLocationManager {
     }
     
     // MARK: Notification
-    @objc private func applicationEnterBackground() {
+    @objc fileprivate func applicationEnterBackground() {
         self.shareModel.bgTask = BackgroundTaskManager.sharedBackgroundTaskManager
         _ = self.shareModel.bgTask?.beginNewBackgroundTask()
     }
@@ -286,7 +286,7 @@ extension LLLocationManager {
 
 // MARK: - timer and backgroundtask
 extension LLLocationManager {
-    private func didUpdateLocationsHook() {
+    fileprivate func didUpdateLocationsHook() {
         
         if(config.stopAfterGetFirstLocation){
             self.stop();
@@ -310,7 +310,7 @@ extension LLLocationManager {
         }
     }
     
-    private func didFailWithErrorHook(error: Error) {
+    fileprivate func didFailWithErrorHook(error: Error) {
         if let error = error as? LocationManagerError {
             if error.kind == .LocationFailed && UIApplication.shared.applicationState == .background {
                 //TODO:Bk

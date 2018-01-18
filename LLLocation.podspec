@@ -10,6 +10,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target     = '8.0'
   s.requires_arc              = true
   s.source                    = { :git => 'https://github.com/Kila2/LLLocation.git', :tag => s.version.to_s }
-  s.source_files              = 'LLLocation/LLLocation/**/*.{h,swift}'
-# s.resources                 = 'LLLocation/LLLocation/*.xcassets'
+  s.source_files              = 'LLLocation/**/*.{h,swift}'
+# s.resources                 = 'LLLocation/*.xcassets'
 end
