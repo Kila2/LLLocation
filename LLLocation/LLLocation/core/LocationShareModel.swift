@@ -31,19 +31,19 @@ public class LocationShareModel:NSObject {
     override init() {
         locations = ArrayPorxy<CLLocation>.init();
         super.init()
-        NotificationCenter.default.addObserver(self, selector:#selector(LocationShareModel.applicationDidEnterBackground1), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(LocationShareModel.applicationWillEnterForeground1), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(LocationShareModel.applicationDidEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(LocationShareModel.applicationWillEnterForeground), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc internal func applicationDidEnterBackground1() {
+    @objc internal func applicationDidEnterBackground() {
         appIsSuppend = .Background
     }
     
-    @objc internal func applicationWillEnterForeground1() {
+    @objc internal func applicationWillEnterForeground() {
         appIsSuppend = .Forground
     }
 }
