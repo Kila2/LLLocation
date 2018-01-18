@@ -9,12 +9,13 @@
 import Foundation
 import CoreLocation
 
-public enum AppIsSuppend: String {
+internal enum AppIsSuppend: Int {
     case Forground
     case Background
     case Suppend
 }
 
+@objcMembers
 public class LocationShareModel:NSObject {
     
     public static let shareModel = LocationShareModel()
