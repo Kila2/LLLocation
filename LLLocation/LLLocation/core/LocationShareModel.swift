@@ -39,11 +39,11 @@ public class LocationShareModel:NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc private func applicationDidEnterBackground() {
+    @objc internal func applicationDidEnterBackground() {
         appIsSuppend = .Background
     }
     
-    @objc private func applicationWillEnterForeground() {
+    @objc internal func applicationWillEnterForeground() {
         appIsSuppend = .Forground
     }
 }
